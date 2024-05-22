@@ -1,0 +1,4 @@
+Nombre: CineriesBox
+Plantilla: Empty Views Activity
+Android version: 8.0 Oreo
+Paquete: ec.com.josliblue.cineriesbox
