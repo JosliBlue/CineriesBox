@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CineriesBox</string>
+
+    <string name="login_titulo">Iniciar Sesion</string>
 </resources>
