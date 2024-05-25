@@ -1,10 +1,9 @@
 package ec.com.josliblue.cineriesbox;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -14,9 +13,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Registro extends AppCompatActivity {
-
+    EditText correo, nombre, clave, claveConfirm;
     ImageButton btn_returnLogin;
-    @SuppressLint("MissingInflatedId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +28,26 @@ public class Registro extends AppCompatActivity {
             return insets;
         });
 
+        esperarRetorno();
+        comprobar();
+
+    }
+
+    private void comprobar(){
+        this.correo = findViewById(R.id.txt_Correo);
+        this.nombre = findViewById(R.id.txt_Nombre);
+        this.clave = findViewById(R.id.txt_NewClave);
+        this.claveConfirm = findViewById(R.id.txt_ConfirmaClave);
+    }
+
+    private void esperarRetorno(){
         this.btn_returnLogin = findViewById(R.id.btn_returnLogin);
         this.btn_returnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Registro.this, Login.class));
+                finish();
             }
         });
-
     }
 }
