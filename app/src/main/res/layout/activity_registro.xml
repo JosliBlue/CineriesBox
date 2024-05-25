@@ -46,15 +46,15 @@
                     android:letterSpacing="0.1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.15"
+                    app:layout_constraintHorizontal_bias="0.17"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.06" />
+                    app:layout_constraintVertical_bias="0.075" />
 
                 <ImageButton
                     android:id="@+id/btn_returnLogin"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="Boton para regresar a login"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -69,7 +69,7 @@
             <EditText
                 android:id="@+id/txt_Correo"
                 android:layout_width="match_parent"
-                android:layout_height="47sp"
+                android:layout_height="49sp"
                 android:layout_marginStart="32sp"
                 android:layout_marginTop="7sp"
                 android:layout_marginEnd="32sp"
@@ -87,9 +87,9 @@
             <EditText
                 android:id="@+id/txt_Nombre"
                 android:layout_width="match_parent"
-                android:layout_height="47sp"
+                android:layout_height="49sp"
                 android:layout_marginStart="32sp"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="19sp"
                 android:layout_marginEnd="32sp"
                 android:autofillHints="email"
                 android:background="@drawable/edittext_background"
@@ -105,9 +105,9 @@
             <EditText
                 android:id="@+id/txt_NewClave"
                 android:layout_width="match_parent"
-                android:layout_height="47sp"
+                android:layout_height="49sp"
                 android:layout_marginStart="32sp"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="19sp"
                 android:layout_marginEnd="32sp"
                 android:autofillHints="password"
                 android:background="@drawable/edittext_background"
@@ -123,9 +123,9 @@
             <EditText
                 android:id="@+id/txt_ConfirmaClave"
                 android:layout_width="match_parent"
-                android:layout_height="47sp"
+                android:layout_height="49sp"
                 android:layout_marginStart="32sp"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="19sp"
                 android:layout_marginEnd="32sp"
                 android:autofillHints="password"
                 android:background="@drawable/edittext_background"
@@ -143,7 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_marginStart="32sp"
-                android:layout_marginTop="40sp"
+                android:layout_marginTop="37sp"
                 android:layout_marginEnd="32sp"
                 android:backgroundTint="@color/sub_color"
                 android:letterSpacing="0.1"
