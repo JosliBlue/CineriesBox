@@ -1,21 +1,36 @@
 package ec.com.josliblue.cineriesbox;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+
 public class Registro extends AppCompatActivity {
     EditText correo, nombre, clave, claveConfirm;
     ImageButton btn_returnLogin;
+    Button btn_registrar;
+    FirebaseAuth mAuth;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,20 +43,79 @@ public class Registro extends AppCompatActivity {
             return insets;
         });
 
-        esperarRetorno();
-        comprobar();
-
-    }
-
-    private void comprobar(){
         this.correo = findViewById(R.id.txt_Correo);
         this.nombre = findViewById(R.id.txt_Nombre);
         this.clave = findViewById(R.id.txt_NewClave);
         this.claveConfirm = findViewById(R.id.txt_ConfirmaClave);
+        this.btn_registrar = findViewById(R.id.btn_Registrarme);
+        this.btn_returnLogin = findViewById(R.id.btn_returnLogin);
+        mAuth = FirebaseAuth.getInstance();
+
+        botonAtras();
+        this.btn_registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String correo_string, clave_string, nuevoNombre;
+                correo_string = String.valueOf(correo.getText());
+                clave_string = String.valueOf(clave.getText());
+                nuevoNombre = String.valueOf(nombre);
+                if (comprobar()) {
+                    mAuth.createUserWithEmailAndPassword(correo_string, clave_string)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(Registro.this, "Usuario no creado. . .", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                }
+                            });
+                    FirebaseUser user = mAuth.getCurrentUser();
+
+                    if (user != null) {
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(nuevoNombre)
+                                .build();
+
+                        user.updateProfile(profileUpdates)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (!task.isSuccessful()) {
+                                            Toast.makeText(Registro.this, "Error al colocar el nombre del usuario", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    }
+                    Toast.makeText(Registro.this, "Usuario creado :)", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    private void esperarRetorno(){
-        this.btn_returnLogin = findViewById(R.id.btn_returnLogin);
+    private boolean comprobar() {
+        // CONTROLES DE TODOS LOS CAMPOS LLENOS
+        if (this.correo.getText().toString().trim().isEmpty() || this.nombre.getText().toString().trim().isEmpty() || this.clave.getText().toString().trim().isEmpty() || this.claveConfirm.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Llene todos los campos. . .", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // PONER CONTROL DE CORREO UNICO
+
+        // PONER CONTROL DE CONTRASEÑA MAS DE 6 CARACTERES
+        if (this.clave.getText().toString().trim().length() <= 5) {
+            Toast.makeText(this, "La contraseña debe ser mas de 6 caracteres. . .", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //PONER CONTROL DE CLAVE Y CONFIRM_CLAVE IGUALES
+        if (!this.clave.getText().toString().trim().equals(this.claveConfirm.getText().toString().trim())) {
+            Toast.makeText(this, "Las contraseñas no coinciden. . .", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private void botonAtras() {
         this.btn_returnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
