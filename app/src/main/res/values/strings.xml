@@ -2,9 +2,5 @@
     <string name="app_name">CineriesBox</string>
 
     <string name="login_titulo">INICIAR SESION</string>
-    <string name="lbl_ClavePerdida">Olvidé mi contraseña</string>
-    <string name="btn_Ingresar">Ingresar</string>
-    <string name="lbl_SinCuenta">¿No tienes una cuenta?</string>
-    <string name="lbl_Registrarme">Registrarme Ahora</string>
 
 </resources>
