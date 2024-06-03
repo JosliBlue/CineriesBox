@@ -67,12 +67,30 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
+
+                android:id="@+id/txt_Nombre"
+                android:layout_width="match_parent"
+                android:layout_height="49sp"
+                android:layout_marginStart="32sp"
+                android:layout_marginEnd="32sp"
+                android:background="@drawable/edittext_background"
+
+                android:ems="10"
+                android:hint="Nombre de usuario"
+                android:inputType="textPersonName"
+                android:paddingStart="20sp"
+                android:paddingEnd="20sp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/dark_white" />
+            <EditText
+                android:layout_marginTop="19sp"
                 android:id="@+id/txt_Correo"
                 android:layout_width="match_parent"
                 android:layout_height="49sp"
                 android:layout_marginStart="32sp"
                 android:layout_marginEnd="32sp"
-                android:autofillHints="email"
+                android:autofillHints="emailAddress"
+
                 android:background="@drawable/edittext_background"
 
                 android:ems="10"
@@ -83,23 +101,7 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/dark_white" />
 
-            <EditText
-                android:id="@+id/txt_Nombre"
-                android:layout_width="match_parent"
-                android:layout_height="49sp"
-                android:layout_marginStart="32sp"
-                android:layout_marginTop="19sp"
-                android:layout_marginEnd="32sp"
-                android:autofillHints="email"
-                android:background="@drawable/edittext_background"
 
-                android:ems="10"
-                android:hint="Nombre de usuario"
-                android:inputType="text"
-                android:paddingStart="20sp"
-                android:paddingEnd="20sp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/dark_white" />
 
             <EditText
                 android:id="@+id/txt_NewClave"

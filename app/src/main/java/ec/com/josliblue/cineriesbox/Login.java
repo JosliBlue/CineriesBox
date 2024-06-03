@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity {
     private Button btn_ingresar;
     private TextView lbl_registarme;
     private ImageButton btn_registro;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -42,34 +42,20 @@ public class Login extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        // desde aqui empieza mi codigo
         this.correo = findViewById(R.id.txt_Correo);
         this.clave = findViewById(R.id.txt_Clave);
         this.btn_ingresar = findViewById(R.id.btn_Ingresar);
-
-        mAuth = FirebaseAuth.getInstance();
-        intentarIngresar();
-
-
         this.lbl_registarme = findViewById(R.id.lbl_Registro);
         this.btn_registro = findViewById(R.id.btn_Registro);
-        this.lbl_registarme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Login.this, Registro.class));
-            }
-        });
-        this.btn_registro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Login.this, Registro.class));
-            }
-        });
 
+        mAuth = FirebaseAuth.getInstance();
+        esperarIntentoIngreso();
+
+        botonVentanaRegistro();
     }
 
-    private void intentarIngresar() {
-
+    private void esperarIntentoIngreso() {
         this.btn_ingresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,13 +78,8 @@ public class Login extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-
-                                    //FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(Login.this, "Inciaste sesion", Toast.LENGTH_SHORT).show();
-
                                 } else {
-
                                     Toast.makeText(Login.this, "No inciaste sesion\nPrueba de nuevo. . .", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
@@ -108,4 +89,18 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    private void botonVentanaRegistro() {
+        this.lbl_registarme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, Registro.class));
+            }
+        });
+        this.btn_registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, Registro.class));
+            }
+        });
+    }
 }
