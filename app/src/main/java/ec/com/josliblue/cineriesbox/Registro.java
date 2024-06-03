@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -30,6 +31,7 @@ import java.util.Map;
 public class Registro extends AppCompatActivity {
     EditText correo, nombre, clave, claveConfirm;
     ImageButton btn_returnLogin;
+    private TextView lbl_returnLogin;
     Button btn_registrar;
     FirebaseAuth mAuth;
 
@@ -51,12 +53,15 @@ public class Registro extends AppCompatActivity {
         this.clave = findViewById(R.id.txt_NewClave);
         this.claveConfirm = findViewById(R.id.txt_ConfirmaClave);
         this.btn_registrar = findViewById(R.id.btn_Registrarme);
+        this.lbl_returnLogin = findViewById(R.id.lbl_returnLogin);
         this.btn_returnLogin = findViewById(R.id.btn_returnLogin);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+
         botonAtras();
+
         this.btn_registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +162,12 @@ public class Registro extends AppCompatActivity {
         this.btn_returnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Registro.this, Login.class));
+                finish();
+            }
+        });
+        this.lbl_returnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +26,11 @@ public class Login extends AppCompatActivity {
 
     private EditText correo, clave;
     private Button btn_ingresar;
-    private TextView lbl_registarme,lbl_sin_cuenta;
+    private TextView lbl_registarme;
+    private ImageButton btn_registro;
     FirebaseAuth mAuth;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,20 +50,22 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         intentarIngresar();
 
+
         this.lbl_registarme = findViewById(R.id.lbl_Registro);
-        this.lbl_sin_cuenta = findViewById(R.id.lbl_SinCuenta);
+        this.btn_registro = findViewById(R.id.btn_Registro);
         this.lbl_registarme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Login.this, Registro.class));
             }
         });
-        this.lbl_sin_cuenta.setOnClickListener(new View.OnClickListener() {
+        this.btn_registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Login.this, Registro.class));
             }
         });
+
     }
 
     private void intentarIngresar() {
