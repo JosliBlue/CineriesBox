@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
 
     private EditText correo, clave;
     private Button btn_ingresar;
-    private TextView lbl_registarme;
+    private TextView lbl_registarme, lbl_clavePerdida;
     private ImageButton btn_registro;
     private FirebaseAuth mAuth;
 
@@ -48,11 +48,13 @@ public class Login extends AppCompatActivity {
         this.btn_ingresar = findViewById(R.id.btn_Ingresar);
         this.lbl_registarme = findViewById(R.id.lbl_Registro);
         this.btn_registro = findViewById(R.id.btn_Registro);
+        this.lbl_clavePerdida = findViewById(R.id.lbl_ClavePerdida);
 
         mAuth = FirebaseAuth.getInstance();
         esperarIntentoIngreso();
 
         botonVentanaRegistro();
+        botonVentanaRecupercarClave();
     }
 
     private void esperarIntentoIngreso() {
@@ -88,7 +90,14 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
+    private void botonVentanaRecupercarClave(){
+        this.lbl_clavePerdida.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, RecuperarClave.class));
+            }
+        });
+    }
     private void botonVentanaRegistro() {
         this.lbl_registarme.setOnClickListener(new View.OnClickListener() {
             @Override
