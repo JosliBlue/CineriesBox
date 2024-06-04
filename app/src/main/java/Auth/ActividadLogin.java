@@ -1,4 +1,4 @@
-package ec.com.josliblue.cineriesbox;
+package Auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import Utilidades.Control;
 import Utilidades.BDFirebase;
+import Main.ActividadPantallaPrincipal;
+import ec.com.josliblue.cineriesbox.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class ActividadLogin extends AppCompatActivity {
     private EditText txt_correo, txt_clave;
     private Button btn_ingresar;
     private TextView lbl_registarme, lbl_clavePerdida;
@@ -28,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.actividad_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -53,21 +55,22 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Control.campoVacio(txt_correo) || Control.campoVacio(txt_clave)) {
-                    Toast.makeText(LoginActivity.this, "Correo o clave invalidos\nPrueba de nuevo. . .", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActividadLogin.this, "Correo o clave invalidos\nPrueba de nuevo. . .", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (!Control.conexInternet(LoginActivity.this)) {
-                    Toast.makeText(LoginActivity.this, "No hay conexión a Internet\nIntenta mas tarde. . .", Toast.LENGTH_LONG).show();
+                if (!Control.conexInternet(ActividadLogin.this)) {
+                    Toast.makeText(ActividadLogin.this, "No hay conexión a Internet\nIntenta mas tarde. . .", Toast.LENGTH_LONG).show();
                     return;
                 }
                 String correo_string = txt_correo.getText().toString().trim();
                 String clave_string = txt_clave.getText().toString().trim();
                 BDFirebase.intentarLogin(correo_string, clave_string, (success, message) -> {
                     if (success) {
-                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-                        //finish();
+                        Toast.makeText(ActividadLogin.this, message, Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ActividadLogin.this, ActividadPantallaPrincipal.class));
+                        finish();
                     } else {
-                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActividadLogin.this, message, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -76,16 +79,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private void botonVentanaRecupercarClave() {
         this.lbl_clavePerdida.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, RecuperarClaveActivity.class));
+            startActivity(new Intent(ActividadLogin.this, ActividadRecuperarClave.class));
         });
     }
 
     private void botonVentanaRegistro() {
         this.lbl_registarme.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, RegistroActivity.class));
+            startActivity(new Intent(ActividadLogin.this, ActividadRegistro.class));
         });
         this.btn_registro.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, RegistroActivity.class));
+            startActivity(new Intent(ActividadLogin.this, ActividadRegistro.class));
         });
     }
 }
