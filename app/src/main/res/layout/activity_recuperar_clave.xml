@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    tools:context=".RecuperarClaveActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="223dp">
+
+                <TextView
+                    android:id="@+id/lbl_returnLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.1"
+                    android:text="REGRESAR"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.110" />
+
+                <ImageButton
+                    android:id="@+id/btn_returnLogin"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Boton para regresar a login"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.019"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.040"
+                    app:srcCompat="@android:drawable/ic_menu_revert" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="325dp"
+                    android:layout_height="wrap_content"
+                    android:text="Ingresa tu correo para recuperar tu contraseña, te enviaremos un correo a tu bandeja de entrada"
+                    android:textColor="@color/sub_sub_color"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.691" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <EditText
+                android:id="@+id/txt_Correo"
+                android:layout_width="match_parent"
+                android:layout_height="49sp"
+                android:layout_marginStart="32sp"
+                android:layout_marginTop="19sp"
+                android:layout_marginEnd="32sp"
+                android:autofillHints="email"
+
+                android:background="@drawable/edittext_background"
+
+                android:ems="10"
+                android:hint="Correo Electronico"
+                android:inputType="textEmailAddress"
+                android:paddingStart="20sp"
+                android:paddingEnd="20sp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/dark_white" />
+
+            <Button
+                android:id="@+id/btn_EnviarCorreo"
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:layout_marginStart="32sp"
+                android:layout_marginTop="37sp"
+                android:layout_marginEnd="32sp"
+                android:backgroundTint="@color/sub_color"
+                android:letterSpacing="0.1"
+
+
+                android:text="Enviar correo"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="340dp">
+
+                <ImageView
+                    android:id="@+id/img_Portada"
+                    android:layout_width="339dp"
+                    android:layout_height="372dp"
+
+                    android:contentDescription="Logo_app"
+                    android:rotation="45"
+                    android:scaleX="-1"
+                    android:src="@drawable/icon_app"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
