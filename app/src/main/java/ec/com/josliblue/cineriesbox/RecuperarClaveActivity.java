@@ -19,14 +19,15 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.SignInMethodQueryResult;
 
-public class RecuperarClave extends AppCompatActivity {
+import Utilidades.BDFirebase;
+import Utilidades.Control;
+
+public class RecuperarClaveActivity extends AppCompatActivity {
     private EditText txt_correo;
     private Button btn_enviarCorreo;
     private ImageButton btn_returnLogin;
     private TextView lbl_returnLogin;
-    private FirebaseAuth mAuth;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,49 +45,34 @@ public class RecuperarClave extends AppCompatActivity {
         this.btn_returnLogin = findViewById(R.id.btn_returnLogin);
         this.txt_correo = findViewById(R.id.txt_Correo);
         this.btn_enviarCorreo = findViewById(R.id.btn_EnviarCorreo);
-        this.mAuth = FirebaseAuth.getInstance();
 
         esperarIntentoRecuperarClave();
 
         botonVentanaLogin();
     }
-    private void esperarIntentoRecuperarClave() {
-        this.btn_enviarCorreo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String correo_string = txt_correo.getText().toString().trim();
 
-                if (correo_string.isEmpty()) {
-                    Toast.makeText(RecuperarClave.this, "Por favor, ingrese su correo electrónico", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                mAuth.sendPasswordResetEmail(correo_string)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(RecuperarClave.this, "Correo de restablecimiento enviado, visita tu bandeja de entrada", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                } else {
-                                    Toast.makeText(RecuperarClave.this, "Error al enviar el correo de restablecimiento", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+    private void esperarIntentoRecuperarClave() {
+        this.btn_enviarCorreo.setOnClickListener(v -> {
+            if (Control.campoVacio(txt_correo)) {
+                Toast.makeText(RecuperarClaveActivity.this, "Por favor, ingrese su correo electrónico", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if (!Control.conexInternet(RecuperarClaveActivity.this)) {
+                Toast.makeText(RecuperarClaveActivity.this, "No hay conexión a Internet\nIntenta mas tarde. . .", Toast.LENGTH_LONG).show();
+                return;
+            }
+            String correo_string = txt_correo.getText().toString().trim();
+            BDFirebase.enviarCorreoRecuperacion(correo_string, (success, message) -> {
+                Toast.makeText(RecuperarClaveActivity.this, message, Toast.LENGTH_SHORT).show();
+                if (success) {
+                    finish();
+                }
+            });
         });
     }
+
     private void botonVentanaLogin() {
-        this.btn_returnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        this.lbl_returnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btn_returnLogin.setOnClickListener(v -> finish());
+        lbl_returnLogin.setOnClickListener(v -> finish());
     }
 }
