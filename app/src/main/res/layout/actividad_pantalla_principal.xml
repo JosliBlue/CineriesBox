@@ -25,12 +25,14 @@
         android:layout_height="wrap_content"
         app:itemTextColor="@color/white"
 
+        app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"
         app:itemPaddingBottom="10dp"
         app:itemIconTint="@color/white"
+        android:textAlignment="center"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
