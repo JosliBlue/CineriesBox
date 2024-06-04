@@ -12,7 +12,7 @@ import Auth.ActividadLogin;
 import Utilidades.BDFirebase;
 import ec.com.josliblue.cineriesbox.R;
 
-public class ActividadMain extends AppCompatActivity {
+public class Main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +30,12 @@ public class ActividadMain extends AppCompatActivity {
         FirebaseUser currentUser = BDFirebase.getUsuarioActual();
         if (currentUser != null) {
             // Usuario ya ha iniciado sesión, redirigir a ActividadPantallaPrincipal
-            Intent intent = new Intent(ActividadMain.this, ActividadPantallaPrincipal.class);
+            Intent intent = new Intent(Main.this, ActividadPantallaPrincipal.class);
             startActivity(intent);
             finish();
         } else {
             // Usuario no ha iniciado sesión, permanecer en ActividadMain o redirigir a ActividadLogin
-            Intent intent = new Intent(ActividadMain.this, ActividadLogin.class);
+            Intent intent = new Intent(Main.this, ActividadLogin.class);
             startActivity(intent);
             finish();
         }
