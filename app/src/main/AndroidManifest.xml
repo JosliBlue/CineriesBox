@@ -15,6 +15,9 @@
         android:theme="@style/Theme.CineriesBox"
         tools:targetApi="31">
         <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".RecuperarClaveActivity"
             android:exported="false" />
         <activity
