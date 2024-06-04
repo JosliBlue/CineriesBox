@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_color"
-    tools:context=".LoginActivity">
+    tools:context="Auth.ActividadLogin">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,62 +21,76 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageButton
-                    android:scaleX="-1"
-                    android:id="@+id/btn_Registro"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="Boton para ir al registro"
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.977"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.03"
-                    app:srcCompat="@android:drawable/ic_menu_revert" />
-
                 <ImageView
                     android:id="@+id/img_Portada"
-                    android:layout_width="317dp"
+                    android:layout_width="310dp"
                     android:layout_height="318dp"
+
                     android:contentDescription="Logo_app"
-
-
-                    android:rotation="45"
+                    android:rotation="-45"
+                    android:scaleX="-1"
                     android:src="@drawable/icon_app"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/lbl_Registro"
+                    android:id="@+id/lbl_returnLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.1"
-                    android:text="REGISTRARME"
+                    android:text="INICIAR SESION"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.84"
+                    app:layout_constraintHorizontal_bias="0.16"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.083" />
+
+                <ImageButton
+                    android:id="@+id/btn_returnLogin"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Boton para regresar a login"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/img_Portada"
+                    app:layout_constraintHorizontal_bias="0.02"
+                    app:layout_constraintVertical_bias="0.03"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_revert" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
-                android:id="@+id/txt_Correo"
+
+                android:id="@+id/txt_Nombre"
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
+                android:layout_height="49sp"
                 android:layout_marginStart="32sp"
                 android:layout_marginEnd="32sp"
-                android:autofillHints="email"
+                android:background="@drawable/edittext_background"
+
+                android:ems="10"
+                android:hint="Nombre de usuario"
+                android:inputType="textPersonName"
+                android:paddingStart="20sp"
+                android:paddingEnd="20sp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/dark_white" />
+            <EditText
+                android:layout_marginTop="19sp"
+                android:id="@+id/txt_Correo"
+                android:layout_width="match_parent"
+                android:layout_height="49sp"
+                android:layout_marginStart="32sp"
+                android:layout_marginEnd="32sp"
+                android:autofillHints="emailAddress"
+
                 android:background="@drawable/edittext_background"
 
                 android:ems="10"
@@ -87,54 +101,56 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/dark_white" />
 
+
+
             <EditText
-                android:id="@+id/txt_Clave"
+                android:id="@+id/txt_NewClave"
                 android:layout_width="match_parent"
-                android:layout_height="50sp"
+                android:layout_height="49sp"
                 android:layout_marginStart="32sp"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="19sp"
                 android:layout_marginEnd="32sp"
                 android:autofillHints="password"
                 android:background="@drawable/edittext_background"
 
                 android:ems="10"
-                android:hint="Contraseña"
+                android:hint="Contraseña (mas de 6 caracteres)"
                 android:inputType="textWebPassword"
                 android:paddingStart="20sp"
                 android:paddingEnd="20sp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/dark_white" />
 
-            <TextView
-                android:id="@+id/lbl_ClavePerdida"
-                android:layout_width="wrap_content"
-                android:layout_gravity="end"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:layout_marginEnd="40dp"
-                android:gravity="center"
-                android:text="Olvide mi contraseña"
-                android:paddingTop="7dp"
-                android:textColor="@color/white" />
-            <View
-                android:layout_width="130dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="40dp"
-                android:layout_height="1dp"
+            <EditText
+                android:id="@+id/txt_ConfirmaClave"
+                android:layout_width="match_parent"
+                android:layout_height="49sp"
+                android:layout_marginStart="32sp"
+                android:layout_marginTop="19sp"
+                android:layout_marginEnd="32sp"
+                android:autofillHints="password"
+                android:background="@drawable/edittext_background"
 
-                android:background="@android:color/white" />
+                android:ems="10"
+                android:hint="Confirma la contraseña"
+                android:inputType="textWebPassword"
+                android:paddingStart="20sp"
+                android:paddingEnd="20sp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/dark_white" />
 
             <Button
-                android:id="@+id/btn_Ingresar"
+                android:id="@+id/btn_Registrarme"
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_marginStart="32sp"
-                android:layout_marginTop="40sp"
+                android:layout_marginTop="37sp"
                 android:layout_marginEnd="32sp"
                 android:backgroundTint="@color/sub_color"
                 android:letterSpacing="0.1"
 
-                android:text="Ingresar"
+
+                android:text="Registrarme"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />

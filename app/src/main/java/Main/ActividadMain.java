@@ -1,4 +1,4 @@
-package ec.com.josliblue.cineriesbox;
+package Main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-public class MainActivity extends AppCompatActivity {
+import Auth.ActividadLogin;
+
+public class ActividadMain extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         // Lanzar LoginActivity
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(ActividadMain.this, ActividadLogin.class);
         startActivity(intent);
         finish();
     }
