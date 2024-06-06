@@ -10,7 +10,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,12 +26,12 @@
                 android:layout_height="match_parent">
 
                 <ImageButton
-                    android:scaleX="-1"
                     android:id="@+id/btn_Registro"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="Boton para ir al registro"
+                    android:scaleX="-1"
                     app:layout_constraintBottom_toBottomOf="parent"
 
                     app:layout_constraintEnd_toEndOf="parent"
@@ -63,8 +67,8 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.84"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_Registro"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.083" />
@@ -108,24 +112,25 @@
             <TextView
                 android:id="@+id/lbl_ClavePerdida"
                 android:layout_width="wrap_content"
-                android:layout_gravity="end"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:layout_marginTop="5sp"
                 android:layout_marginEnd="40dp"
                 android:gravity="center"
-                android:text="Olvide mi contraseña"
                 android:paddingTop="7dp"
+                android:text="Olvide mi contraseña"
                 android:textColor="@color/white" />
+
             <View
                 android:layout_width="130dp"
+                android:layout_height="1dp"
                 android:layout_gravity="end"
                 android:layout_marginEnd="40dp"
-                android:layout_height="1dp"
 
                 android:background="@android:color/white" />
 
             <Button
-                android:id="@+id/btn_Ingresar"
+                android:id="@+id/btn_IniciarSesion"
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_marginStart="32sp"

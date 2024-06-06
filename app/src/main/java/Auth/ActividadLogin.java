@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import Utilidades.Control;
 import Utilidades.BDFirebase;
-import Main.ActividadPantallaPrincipal;
+import Home.ActividadPantallaPrincipal;
 import ec.com.josliblue.cineriesbox.R;
 
 public class ActividadLogin extends AppCompatActivity {
@@ -39,7 +39,7 @@ public class ActividadLogin extends AppCompatActivity {
 
         this.txt_correo = findViewById(R.id.txt_Correo);
         this.txt_clave = findViewById(R.id.txt_Clave);
-        this.btn_ingresar = findViewById(R.id.btn_Ingresar);
+        this.btn_ingresar = findViewById(R.id.btn_IniciarSesion);
         this.lbl_registarme = findViewById(R.id.lbl_Registro);
         this.btn_registro = findViewById(R.id.btn_Registro);
         this.lbl_clavePerdida = findViewById(R.id.lbl_ClavePerdida);
@@ -66,7 +66,6 @@ public class ActividadLogin extends AppCompatActivity {
                 String clave_string = txt_clave.getText().toString().trim();
                 BDFirebase.intentarLogin(correo_string, clave_string, (success, message) -> {
                     if (success) {
-                        Toast.makeText(ActividadLogin.this, message, Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ActividadLogin.this, ActividadPantallaPrincipal.class));
                         finish();
                     } else {

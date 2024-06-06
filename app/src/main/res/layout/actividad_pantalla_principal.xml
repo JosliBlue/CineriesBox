@@ -6,33 +6,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_color"
-    tools:context="Main.ActividadPantallaPrincipal">
+    tools:context="Home.ActividadPantallaPrincipal">
 
     <FrameLayout
         android:id="@+id/EspacioApp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/EspacioMenu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/EspacioMenu"
-        android:background="@color/dark_main_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/dark_main_color"
+        android:textAlignment="center"
+        app:itemIconTint="@color/white"
+        app:itemPaddingBottom="10dp"
         app:itemTextColor="@color/white"
-
         app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        app:itemPaddingBottom="10dp"
-        app:itemIconTint="@color/white"
-        android:textAlignment="center"
-        />
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

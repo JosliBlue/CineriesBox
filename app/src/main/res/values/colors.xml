@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#FF0000</color>
+    <color name="red">#C80000</color>
 
     <color name="main_color">#0A192C</color>
     <color name="sub_color">#D16100</color>
@@ -11,4 +11,5 @@
     
     <color name="dark_main_color">#040A11</color>
     <color name="dark_white">#908E8E</color>
+    <color name="material_background">#494458</color>
 </resources>

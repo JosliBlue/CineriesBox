@@ -24,10 +24,6 @@ public class BDFirebase {
     private BDFirebase() {
     }
 
-    public static FirebaseUser getUsuarioActual() {
-        return auth.getCurrentUser();
-    }
-
     // AUTENTICACION -------------------------------------------------------------------------------
     public static void intentarLogin(String correo, String clave, FirebaseCallBack callback) {
         auth.signInWithEmailAndPassword(correo, clave).addOnCompleteListener(task -> {
@@ -43,6 +39,10 @@ public class BDFirebase {
                 callback.onResult(false, errorMessage);
             }
         });
+    }
+
+    public static void cerrarSesion() {
+        FirebaseAuth.getInstance().signOut();
     }
 
     public static void registrarUsuario(String correo, String clave, FirebaseCallBack callback) {
@@ -65,6 +65,10 @@ public class BDFirebase {
                 callback.onResult(false, "Error al actualizar el perfil: " + task.getException().getMessage());
             }
         });
+    }
+
+    public static FirebaseUser getUsuarioActual() {
+        return auth.getCurrentUser();
     }
 
     public static void enviarCorreoRecuperacion(String correo, FirebaseCallBack callback) {
