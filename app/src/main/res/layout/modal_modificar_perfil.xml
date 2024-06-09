@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/material_background"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="20sp"
+        android:paddingTop="20sp"
+        android:paddingEnd="20sp"
+        android:paddingBottom="20sp">
+
+        <TextView
+            android:id="@+id/lbl_MMP_Titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actualizar Perfil"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:layout_height="50sp"
+            android:id="@+id/txt_MMP_NuevoNombre"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Nombre de perfil"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/dark_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lbl_MMP_Titulo" />
+
+        <EditText
+            android:id="@+id/txt_MMP_ClaveActual"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Contraseña actual"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:paddingStart="20sp"
+            android:layout_height="50sp"
+            android:paddingEnd="20sp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/dark_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_MMP_NuevoNombre" />
+
+        <EditText
+            android:id="@+id/txt_MMP_ClaveNueva"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Nueva contraseña"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:paddingStart="20sp"
+            android:layout_height="50sp"
+            android:paddingEnd="20sp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/dark_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_MMP_ClaveActual" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_MMP_ClaveNueva">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_MMP_Cancelar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/sub_color"
+                android:text="Cancelar"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_MMP_Confirmar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/green"
+                android:text="Confirmar"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

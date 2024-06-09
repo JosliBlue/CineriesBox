@@ -1,13 +1,15 @@
 package Utilidades;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
@@ -25,6 +27,10 @@ public class BDFirebase {
     }
 
     // AUTENTICACION -------------------------------------------------------------------------------
+    public static FirebaseUser getUsuarioActual() {
+        return auth.getCurrentUser();
+    }
+
     public static void intentarLogin(String correo, String clave, FirebaseCallBack callback) {
         auth.signInWithEmailAndPassword(correo, clave).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -67,10 +73,6 @@ public class BDFirebase {
         });
     }
 
-    public static FirebaseUser getUsuarioActual() {
-        return auth.getCurrentUser();
-    }
-
     public static void enviarCorreoRecuperacion(String correo, FirebaseCallBack callback) {
         auth.sendPasswordResetEmail(correo).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -79,6 +81,50 @@ public class BDFirebase {
                 callback.onResult(false, "Error al enviar el correo de restablecimiento: " + task.getException().getMessage());
             }
         });
+    }
+
+    public static void cambiarNombrePerfil(String newDisplayName, FirebaseCallBack callback) {
+        FirebaseUser user = getUsuarioActual();
+        if (user != null) {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(newDisplayName).build();
+
+            user.updateProfile(profileUpdates).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    callback.onResult(true, "Nombre de perfil actualizado");
+                } else {
+                    callback.onResult(false, "Error al actualzar el nombre de usuario: " + task.getException().getMessage());
+                }
+            });
+        } else {
+            callback.onResult(false, "Error 2 al actualzar el nombre de usuario");
+        }
+    }
+
+    public static void cambiarClave(String claveActual, String claveNueva, FirebaseCallBack callback) {
+        FirebaseUser user = getUsuarioActual();
+        if (user != null) {
+            // Obtener las credenciales del usuario actual
+            AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), claveActual);
+
+            // Reautenticar al usuario
+            user.reauthenticate(credential).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // Si la reautenticación es exitosa, cambiar la contraseña
+                    user.updatePassword(claveNueva).addOnCompleteListener(updatePasswordTask -> {
+                        if (updatePasswordTask.isSuccessful()) {
+                            callback.onResult(true, "Contraseña actualizada exitosamente");
+                        } else {
+                            callback.onResult(false, "Error al actualizar la contraseña: " + updatePasswordTask.getException().getMessage());
+                        }
+                    });
+                } else {
+                    // Si la reautenticación falla, mostrar un mensaje de error
+                    callback.onResult(false, "Error al reautenticar: " + task.getException().getMessage());
+                }
+            });
+        } else {
+            callback.onResult(false, "Error al actualizar la contraseña: usuario no encontrado");
+        }
     }
 
     // BASE DE DATOS -------------------------------------------------------------------------------
@@ -101,5 +147,18 @@ public class BDFirebase {
         });
     }
 
+    public static void actualizarDocumento(String path, Map<String, Object> data, FirebaseCallBack callback) {
+        DocumentReference docRef = bd.document(path);
+        docRef.update(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(Task<Void> task) {
+                if (task.isSuccessful()) {
+                    /*callback.onResult(true, "Documento actualizado exitosamente");*/
+                } else {
+                    callback.onResult(false, "Error al actualizar el documento: " + task.getException().getMessage());
+                }
+            }
+        });
+    }
 
 }

@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/dark_main_color"
-    app:cardCornerRadius="25dp"
-    app:cardElevation="10dp">
+    android:backgroundTint="@color/material_background"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="50dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingStart="20sp"
         android:paddingTop="20sp"
         android:paddingEnd="20sp"
@@ -19,8 +19,7 @@
             android:id="@+id/lbl_MCC_Titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="¿Cerrar Sesion?"
+            android:text="Titulo modal"
             android:textColor="@color/white"
             android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Estas seguro de salir?"
+            android:text="Descripcion modal"
             android:textColor="@color/white"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
