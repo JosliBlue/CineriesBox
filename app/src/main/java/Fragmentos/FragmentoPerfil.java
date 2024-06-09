@@ -136,6 +136,7 @@ public class FragmentoPerfil extends Fragment {
                         if (success) {
                             actualizarDisplayNameEnBD(nuevoNombre);
                             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                            modificarPerfilDialog.dismiss();
                         } else {
                             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                         }
@@ -149,6 +150,9 @@ public class FragmentoPerfil extends Fragment {
                     public void onResult(boolean success, String message) {
                         if (success) {
                             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                            modificarPerfilDialog.dismiss();
+                            modificarPerfilBinding.txtMMPClaveActual.setText("");
+                            modificarPerfilBinding.txtMMPClaveNueva.setText("");
                         } else {
                             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                         }
