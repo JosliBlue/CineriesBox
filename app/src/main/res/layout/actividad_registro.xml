@@ -26,7 +26,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/img_Portada"
+                    android:id="@+id/img_AR_Portada"
                     android:layout_width="310dp"
                     android:layout_height="318dp"
 
@@ -40,7 +40,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/lbl_returnLogin"
+                    android:id="@+id/lbl_AR_ReturnLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.1"
@@ -51,18 +51,18 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/btn_returnLogin"
+                    app:layout_constraintStart_toEndOf="@+id/btn_AR_ReturnLogin"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.083" />
 
                 <ImageButton
-                    android:id="@+id/btn_returnLogin"
+                    android:id="@+id/btn_AR_ReturnLogin"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="Boton para regresar a login"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/img_Portada"
+                    app:layout_constraintEnd_toEndOf="@+id/img_AR_Portada"
                     app:layout_constraintHorizontal_bias="0.02"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -72,7 +72,7 @@
 
             <EditText
 
-                android:id="@+id/txt_Nombre"
+                android:id="@+id/txt_AR_Nombre"
                 android:layout_width="match_parent"
                 android:layout_height="49sp"
                 android:layout_marginStart="32sp"
@@ -88,7 +88,7 @@
                 android:textColorHint="@color/dark_white" />
 
             <EditText
-                android:id="@+id/txt_Correo"
+                android:id="@+id/txt_AR_Correo"
                 android:layout_width="match_parent"
                 android:layout_height="49sp"
                 android:layout_marginStart="32sp"
@@ -108,7 +108,7 @@
 
 
             <EditText
-                android:id="@+id/txt_NewClave"
+                android:id="@+id/txt_AR_NewClave"
                 android:layout_width="match_parent"
                 android:layout_height="49sp"
                 android:layout_marginStart="32sp"
@@ -126,7 +126,7 @@
                 android:textColorHint="@color/dark_white" />
 
             <EditText
-                android:id="@+id/txt_ConfirmaClave"
+                android:id="@+id/txt_AR_ConfirmaClave"
                 android:layout_width="match_parent"
                 android:layout_height="49sp"
                 android:layout_marginStart="32sp"
@@ -144,7 +144,7 @@
                 android:textColorHint="@color/dark_white" />
 
             <Button
-                android:id="@+id/btn_Registrarme"
+                android:id="@+id/btn_AR_Registrarme"
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_marginStart="32sp"

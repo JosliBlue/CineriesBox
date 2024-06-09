@@ -5,47 +5,36 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import Auth.ActividadLogin;
 import Utilidades.BDFirebase;
-import ec.com.josliblue.cineriesbox.R;
+import ec.com.josliblue.cineriesbox.databinding.FragmentoPerfilBinding;
+import ec.com.josliblue.cineriesbox.databinding.ModalCancelarConfirmarBinding;
 
 public class FragmentoPerfil extends Fragment {
-    private TextView txt_nombreUsuario, modal_textTitulo, modal_textDescripcion;
-    private ImageView btn_editarPerfil;
-    private Button btn_cerrarSesion, btn_dialogCancel, btn_dialogConfirm;
+    private FragmentoPerfilBinding binding;
+    private ModalCancelarConfirmarBinding dialogBinding;
     private Dialog dialog;
 
-    @SuppressLint({"MissingInflatedId", "SetTextI18n", "WrongViewCast"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragmento_perfil, container, false);
+        binding = FragmentoPerfilBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-        this.txt_nombreUsuario = view.findViewById(R.id.txt_NombreUsuario);
-        this.btn_editarPerfil = view.findViewById(R.id.img_TarjetaPerfil);
-        this.btn_cerrarSesion = view.findViewById(R.id.btn_CerrarSesion);
+        binding.txtFPNombreUsuario.setText("Hola " + BDFirebase.getUsuarioActual().getDisplayName());
 
-        this.dialog = new Dialog(getActivity());
-        this.dialog.setContentView(R.layout.modal_cancelar_confirmar);
-        this.dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        this.dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        this.dialog.setCancelable(false);
-
-        this.modal_textTitulo = this.dialog.findViewById(R.id.lbl_ModalTitulo);
-        this.modal_textDescripcion = this.dialog.findViewById(R.id.lbl_ModalDescripcion);
-        this.btn_dialogCancel = this.dialog.findViewById(R.id.btn_ModalCancelar);
-        this.btn_dialogConfirm = this.dialog.findViewById(R.id.btn_ModalConfirmar);
-
-        this.txt_nombreUsuario.setText("Hola " + BDFirebase.getUsuarioActual().getDisplayName());
+        // configuracion del modal
+        dialogBinding = ModalCancelarConfirmarBinding.inflate(inflater);
+        dialog = new Dialog(getActivity());
+        dialog.setContentView(dialogBinding.getRoot());
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(true);
 
         esperarIntentoCerrarSesion("¿Cerrar Sesión?", "Estás seguro de salir?");
         esperarVentanaEditarPerfil();
@@ -54,15 +43,15 @@ public class FragmentoPerfil extends Fragment {
     }
 
     private void esperarIntentoCerrarSesion(String titulo, String descripcion) {
-        this.modal_textTitulo.setText(titulo);
-        this.modal_textDescripcion.setText(descripcion);
-        this.btn_cerrarSesion.setOnClickListener(v -> {
-            this.dialog.show();
+        dialogBinding.lblMCCTitulo.setText(titulo);
+        dialogBinding.lblMCCDescripcion.setText(descripcion);
+        binding.btnFPCerrarSesion.setOnClickListener(v -> {
+            dialog.show();
         });
-        this.btn_dialogCancel.setOnClickListener(v -> {
-            this.dialog.dismiss();
+        dialogBinding.btnMCCCancelar.setOnClickListener(v -> {
+            dialog.dismiss();
         });
-        this.btn_dialogConfirm.setOnClickListener(v -> {
+        dialogBinding.btnMCCConfirmar.setOnClickListener(v -> {
             BDFirebase.cerrarSesion();
             startActivity(new Intent(getActivity(), ActividadLogin.class));
             getActivity().finish();
@@ -70,9 +59,8 @@ public class FragmentoPerfil extends Fragment {
     }
 
     private void esperarVentanaEditarPerfil() {
-        this.btn_editarPerfil.setOnClickListener(v -> {
-
+        binding.imgFPTarjetaPerfil.setOnClickListener(v -> {
+            // Lógica para abrir la ventana de edición de perfil
         });
     }
-
 }

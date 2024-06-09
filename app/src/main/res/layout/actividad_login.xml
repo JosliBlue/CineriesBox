@@ -26,7 +26,7 @@
                 android:layout_height="match_parent">
 
                 <ImageButton
-                    android:id="@+id/btn_Registro"
+                    android:id="@+id/btn_AL_Registro"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -42,7 +42,7 @@
                     app:srcCompat="@android:drawable/ic_menu_revert" />
 
                 <ImageView
-                    android:id="@+id/img_Portada"
+                    android:id="@+id/img_AL_Portada"
                     android:layout_width="317dp"
                     android:layout_height="318dp"
                     android:contentDescription="Logo_app"
@@ -58,7 +58,7 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/lbl_Registro"
+                    android:id="@+id/lbl_AL_Registro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.1"
@@ -67,7 +67,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_Registro"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_AL_Registro"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -75,7 +75,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
-                android:id="@+id/txt_Correo"
+                android:id="@+id/txt_AL_Correo"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:layout_marginStart="32sp"
@@ -92,7 +92,7 @@
                 android:textColorHint="@color/dark_white" />
 
             <EditText
-                android:id="@+id/txt_Clave"
+                android:id="@+id/txt_AL_Clave"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:layout_marginStart="32sp"
@@ -110,7 +110,7 @@
                 android:textColorHint="@color/dark_white" />
 
             <TextView
-                android:id="@+id/lbl_ClavePerdida"
+                android:id="@+id/lbl_AL_ClavePerdida"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -130,7 +130,7 @@
                 android:background="@android:color/white" />
 
             <Button
-                android:id="@+id/btn_IniciarSesion"
+                android:id="@+id/btn_AL_IniciarSesion"
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_marginStart="32sp"

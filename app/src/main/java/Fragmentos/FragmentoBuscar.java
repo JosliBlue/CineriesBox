@@ -1,26 +1,28 @@
 package Fragmentos;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ec.com.josliblue.cineriesbox.R;
+import androidx.fragment.app.Fragment;
+
+import ec.com.josliblue.cineriesbox.databinding.FragmentoBuscarBinding;
 
 public class FragmentoBuscar extends Fragment {
-
-    /*
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-     */
+    private FragmentoBuscarBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragmento_buscar, container, false);
+        // Inflar y retornar la vista del fragmento utilizando View Binding
+        binding = FragmentoBuscarBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Liberar la referencia del binding
+        binding = null;
     }
 }

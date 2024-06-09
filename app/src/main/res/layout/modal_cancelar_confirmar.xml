@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/dark_main_color"
-    app:cardElevation="10dp"
-    app:cardCornerRadius="25dp">
+    app:cardCornerRadius="25dp"
+    app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingStart="20sp"
         android:paddingTop="20sp"
         android:paddingEnd="20sp"
-        android:paddingBottom="20sp"
-        android:paddingStart="20sp"
-        >
+        android:paddingBottom="20sp">
 
         <TextView
-            android:id="@+id/lbl_ModalTitulo"
+            android:id="@+id/lbl_MCC_Titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -30,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/lbl_ModalDescripcion"
+            android:id="@+id/lbl_MCC_Descripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -40,7 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_ModalTitulo" />
+            app:layout_constraintTop_toBottomOf="@+id/lbl_MCC_Titulo" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -52,10 +50,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_ModalDescripcion">
+            app:layout_constraintTop_toBottomOf="@+id/lbl_MCC_Descripcion">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_ModalCancelar"
+                android:id="@+id/btn_MCC_Cancelar"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -67,7 +65,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_ModalConfirmar"
+                android:id="@+id/btn_MCC_Confirmar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"

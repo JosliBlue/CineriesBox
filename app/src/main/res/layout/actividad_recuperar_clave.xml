@@ -22,7 +22,7 @@
                 android:layout_height="223dp">
 
                 <TextView
-                    android:id="@+id/lbl_returnLogin"
+                    android:id="@+id/lbl_ARC_ReturnLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.1"
@@ -38,7 +38,7 @@
                     app:layout_constraintVertical_bias="0.110" />
 
                 <ImageButton
-                    android:id="@+id/btn_returnLogin"
+                    android:id="@+id/btn_ARC_ReturnLogin"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -52,7 +52,7 @@
                     app:srcCompat="@android:drawable/ic_menu_revert" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/lbl_ARC_TextoAyuda"
                     android:layout_width="325dp"
                     android:layout_height="wrap_content"
                     android:text="Ingresa tu correo para recuperar tu contraseña, te enviaremos un correo a tu bandeja de entrada"
@@ -67,7 +67,7 @@
 
 
             <EditText
-                android:id="@+id/txt_Correo"
+                android:id="@+id/txt_ARC_Correo"
                 android:layout_width="match_parent"
                 android:layout_height="49sp"
                 android:layout_marginStart="32sp"
@@ -86,7 +86,7 @@
                 android:textColorHint="@color/dark_white" />
 
             <Button
-                android:id="@+id/btn_EnviarCorreo"
+                android:id="@+id/btn_ARC_EnviarCorreo"
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:layout_marginStart="32sp"
@@ -106,7 +106,7 @@
                 android:layout_height="340dp">
 
                 <ImageView
-                    android:id="@+id/img_Portada"
+                    android:id="@+id/img_ARC_Portada"
                     android:layout_width="339dp"
                     android:layout_height="372dp"
 

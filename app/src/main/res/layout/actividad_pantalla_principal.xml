@@ -9,14 +9,14 @@
     tools:context="Home.ActividadPantallaPrincipal">
 
     <FrameLayout
-        android:id="@+id/EspacioApp"
+        android:id="@+id/frm_APP_App"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/EspacioMenu"
+        app:layout_constraintBottom_toTopOf="@+id/frm_APP_Menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,7 +24,7 @@
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/EspacioMenu"
+        android:id="@+id/frm_APP_Menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/dark_main_color"
