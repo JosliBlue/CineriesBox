@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Buscar"
-        android:icon="@drawable/ic_fill_buscar"
+        android:icon="@drawable/selector_ic_buscar"
         />
     <item
         android:id="@+id/navPerfil"
