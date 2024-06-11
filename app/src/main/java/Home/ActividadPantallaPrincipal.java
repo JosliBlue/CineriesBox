@@ -1,6 +1,5 @@
 package Home;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;

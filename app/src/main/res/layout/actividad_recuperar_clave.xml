@@ -75,7 +75,7 @@
                 android:layout_marginEnd="32sp"
                 android:autofillHints="email"
 
-                android:background="@drawable/edittext_background"
+                android:background="@drawable/background_edittext"
 
                 android:ems="10"
                 android:hint="Correo Electronico"
@@ -113,7 +113,7 @@
                     android:contentDescription="Logo_app"
                     android:rotation="45"
                     android:scaleX="-1"
-                    android:src="@drawable/icon_app"
+                    android:src="@drawable/img_icon_app"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"

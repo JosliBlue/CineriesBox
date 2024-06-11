@@ -49,6 +49,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // Aunque tambien existe uno integrado con el SDK, llamado Volley
 
+    // Cosas que me dice el tutorial
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

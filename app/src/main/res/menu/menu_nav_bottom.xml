@@ -6,20 +6,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Principal"
-        android:icon="@drawable/ic_principal_selector"
+        android:icon="@drawable/selector_ic_principal"
         />
     <item
         android:id="@+id/navBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Buscar"
-        android:icon="@drawable/ic_baseline_buscar_selected"
+        android:icon="@drawable/ic_fill_buscar"
         />
     <item
         android:id="@+id/navPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Perfil"
-        android:icon="@drawable/ic_perfil_selector"
+        android:icon="@drawable/selector_ic_perfil"
         />
 </menu>
