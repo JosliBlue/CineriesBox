@@ -15,8 +15,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.Map;
 
-import Interfaces.FirebaseCallBack;
-
 /* Aqui solo se consume el servicio de firebase,
    la intanciacion se hizo automatico con ayuda del IDE (tools -> Firebase) */
 public class BDFirebase {

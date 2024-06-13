@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "ec.com.josliblue.cineriesbox"
-        minSdk = 26
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -51,6 +51,7 @@ dependencies {
 
     // Cosas que me dice el tutorial
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

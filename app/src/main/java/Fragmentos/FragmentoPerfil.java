@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Auth.ActividadLogin;
-import Interfaces.FirebaseCallBack;
+import Utilidades.FirebaseCallBack;
 import Utilidades.BDFirebase;
 import Utilidades.Control;
 import ec.com.josliblue.cineriesbox.databinding.FragmentoPerfilBinding;
