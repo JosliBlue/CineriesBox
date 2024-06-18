@@ -15,6 +15,9 @@
         android:theme="@style/Theme.CineriesBox"
         tools:targetApi="31">
         <activity
+            android:name="ConAPI.ActividadDetalleFilm"
+            android:exported="false" />
+        <activity
             android:name="Home.ActividadPantallaPrincipal"
             android:exported="false" />
         <activity

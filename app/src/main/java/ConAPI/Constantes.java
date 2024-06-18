@@ -1,4 +1,4 @@
-package Network;
+package ConAPI;
 
 public class Constantes {
     // The movie DB ----------------------------------------------------------------------
