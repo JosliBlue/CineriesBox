@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/Iv_CVHA_ImagenActor"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -13,6 +13,8 @@
         android:layout_marginBottom="603dp"
         android:layout_margin="5dp"
         android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
