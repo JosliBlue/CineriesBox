@@ -40,9 +40,8 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     public void onBindViewHolder(@NonNull CategoryListAdapter.ViewHolder holder, int position) {
         holder.titleTxt.setText(items.get(position).getName());
 
-
         holder.itemView.setOnClickListener(v -> {
-
+            //evento para hacer click en una categoria, fragmento principal, PENDIENTE
         });
     }
 

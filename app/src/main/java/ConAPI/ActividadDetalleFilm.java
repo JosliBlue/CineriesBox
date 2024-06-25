@@ -1,5 +1,7 @@
 package ConAPI;
 
+import static ConAPI.Constantes.*;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,6 +26,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ec.com.josliblue.cineriesbox.databinding.ActividadDetalleFilmBinding;
 
@@ -64,29 +69,32 @@ public class ActividadDetalleFilm extends AppCompatActivity {
         binding.PbADFCarganding.setVisibility(View.VISIBLE);
         binding.scrollView2.setVisibility(View.GONE);
 
+        String url = "https://api.themoviedb.org/3/movie/" + idFilm + "?api_key=" + API_KEY;
 
-        mStringRequest = new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies/" + idFilm, response -> {
+        mStringRequest = new StringRequest(Request.Method.GET, url, response -> {
             Gson gson = new Gson();
             binding.PbADFCarganding.setVisibility(View.GONE);
             binding.scrollView2.setVisibility(View.VISIBLE);
 
             FilmItem item = gson.fromJson(response, FilmItem.class);
-            Glide.with(ActividadDetalleFilm.this).load(item.getPoster()).into(binding.IvADFImagenPortada);
+            Glide.with(ActividadDetalleFilm.this).load("https://image.tmdb.org/t/p/w500" + item.getPosterPath()).into(binding.IvADFImagenPortada);
 
             binding.LblADFMovieName.setText(item.getTitle());
-            binding.LblADFMovieStar.setText(item.getImdbRating());
-            binding.LblADFMovieTime.setText(item.getRuntime());
-            binding.TxtADFSummary.setText(item.getPlot());
-            binding.LblADFActores.setText(item.getActors());
-            if (item.getImages() != null) {
-                adapterActorList = new ActorsListAdapter(item.getImages());
-                binding.RvADFImagenRecycler.setAdapter(adapterActorList);
-            }
+            binding.LblADFMovieStar.setText(String.valueOf(item.getVoteAverage()));
+            binding.LblADFMovieTime.setText(String.valueOf(item.getRuntime()) + " min");
+            binding.TxtADFSummary.setText(item.getOverview());
+
+            // Handle genres
             if (item.getGenres() != null) {
-                adapterCategory = new CategoryEachFilmListAdapter(item.getGenres());
+                List<String> genres = new ArrayList<>();
+                for (FilmItem.Genre genre : item.getGenres()) {
+                    genres.add(genre.getName());
+                }
+                adapterCategory = new CategoryEachFilmListAdapter(genres);
                 binding.RvADFGenreView.setAdapter(adapterCategory);
             }
         }, error -> binding.PbADFCarganding.setVisibility(View.GONE));
+
         mRequestQueue.add(mStringRequest);
     }
 }

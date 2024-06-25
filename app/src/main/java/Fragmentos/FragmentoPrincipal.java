@@ -1,12 +1,13 @@
 package Fragmentos;
 
+import static ConAPI.Constantes.*;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -40,7 +43,7 @@ public class FragmentoPrincipal extends Fragment {
     private Handler sliderHandler = new Handler();
     private RequestQueue mRequestQueue;
 
-    private RecyclerView.Adapter adapterBestMovies, adapterUpComing, adapterCategory;
+    private RecyclerView.Adapter adapterBestHistory, adapterBestMovies, adapterUpComing, adapterCategory;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +53,8 @@ public class FragmentoPrincipal extends Fragment {
         initializeRecyclerViews();
         initializeRequestQueue();
 
-        sendRequestBestMovies();
+        sendRequestBestHistory();
+        sendRequestPopular();
         sendRequestUpComming();
         sendRequestCategory();
 
@@ -94,21 +98,22 @@ public class FragmentoPrincipal extends Fragment {
         binding.RvFPVista1.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         binding.RvFPVista2.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         binding.RvFPVista3.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        binding.RvFPVista4.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
     }
 
     private void initializeRequestQueue() {
         mRequestQueue = Volley.newRequestQueue(getActivity());
     }
 
-    private void sendRequestBestMovies() {
+    private void sendRequestBestHistory() {
         binding.PbFP1.setVisibility(View.VISIBLE);
-        String url = "https://www.moviesapi.ir/api/v1/movies?page=1";
+        String url = BASE_URL + "movie/top_rated"+"?api_key=" + API_KEY;
         StringRequest mStringRequest = new StringRequest(Request.Method.GET, url, response -> {
             Gson gson = new Gson();
             binding.PbFP1.setVisibility(View.GONE);
             ListFilm items = gson.fromJson(response, ListFilm.class);
-            adapterBestMovies = new FilmListAdapter(items);
-            binding.RvFPVista1.setAdapter(adapterBestMovies);
+            adapterBestHistory = new FilmListAdapter(items);
+            binding.RvFPVista1.setAdapter(adapterBestHistory);
         }, error -> {
             binding.PbFP1.setVisibility(View.GONE);
             Log.i("UiLover", "onErrorResponse: " + error.toString());
@@ -116,13 +121,38 @@ public class FragmentoPrincipal extends Fragment {
         mRequestQueue.add(mStringRequest);
     }
 
+    private void sendRequestPopular() {
+        binding.PbFP4.setVisibility(View.VISIBLE);
+        String url = BASE_URL + "movie/popular"+"?api_key=" + API_KEY;
+        StringRequest mStringRequest = new StringRequest(Request.Method.GET, url, response -> {
+            Gson gson = new Gson();
+            binding.PbFP4.setVisibility(View.GONE);
+            ListFilm items = gson.fromJson(response, ListFilm.class);
+            adapterBestMovies = new FilmListAdapter(items);
+            binding.RvFPVista4.setAdapter(adapterBestMovies);
+        }, error -> {
+            binding.PbFP4.setVisibility(View.GONE);
+            Log.i("UiLover", "onErrorResponse: " + error.toString());
+        });
+        mRequestQueue.add(mStringRequest);
+    }
+
+
     private void sendRequestCategory() {
         binding.PbFP2.setVisibility(View.VISIBLE);
-        String url = "https://www.moviesapi.ir/api/v1/genres";
+        String url = BASE_URL + "genre/movie/list"+"?api_key=" + API_KEY;
         StringRequest mStringRequest = new StringRequest(Request.Method.GET, url, response -> {
             Gson gson = new Gson();
             binding.PbFP2.setVisibility(View.GONE);
-            ArrayList<GenresItem> catList = gson.fromJson(response, new TypeToken<ArrayList<GenresItem>>(){}.getType());
+
+            // Deserializar la respuesta JSON
+            JsonObject jsonResponse = gson.fromJson(response, JsonObject.class);
+            JsonArray genresArray = jsonResponse.getAsJsonArray("genres");
+
+            // Convertir el array de géneros en una lista de GenresItem
+            ArrayList<GenresItem> catList = gson.fromJson(genresArray, new TypeToken<ArrayList<GenresItem>>() {
+            }.getType());
+
             adapterCategory = new CategoryListAdapter(catList);
             binding.RvFPVista2.setAdapter(adapterCategory);
         }, error -> {
@@ -132,9 +162,10 @@ public class FragmentoPrincipal extends Fragment {
         mRequestQueue.add(mStringRequest);
     }
 
+
     private void sendRequestUpComming() {
         binding.PbFP3.setVisibility(View.VISIBLE);
-        String url = "https://www.moviesapi.ir/api/v1/movies?page=2";
+        String url = BASE_URL + "movie/upcoming"+"?api_key=" + API_KEY;
         StringRequest mStringRequest = new StringRequest(Request.Method.GET, url, response -> {
             Gson gson = new Gson();
             binding.PbFP3.setVisibility(View.GONE);

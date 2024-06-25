@@ -9,5 +9,4 @@ public class GenresItem {
     public Integer getId() {
         return id;
     }
-
 }

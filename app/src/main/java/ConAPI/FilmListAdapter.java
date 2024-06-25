@@ -36,18 +36,19 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull FilmListAdapter.ViewHolder holder, int position) {
-        holder.titleTxt.setText(items.getData().get(position).getTitle());
+        Datum movie = items.getData().get(position);
+        holder.titleTxt.setText(movie.getTitle());
         RequestOptions requestOptions = new RequestOptions();
-        requestOptions = requestOptions.transform(new CenterCrop(),new RoundedCorners(30));
+        requestOptions = requestOptions.transform(new CenterCrop(), new RoundedCorners(30));
 
         Glide.with(context)
-                .load(items.getData().get(position).getPoster())
+                .load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath())
                 .apply(requestOptions)
                 .into(holder.pic);
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(holder.itemView.getContext(), ActividadDetalleFilm.class);
-            intent.putExtra("id",items.getData().get(position).getId());
+            intent.putExtra("id", movie.getId());
             context.startActivity(intent);
         });
     }
@@ -63,10 +64,9 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             titleTxt = itemView.findViewById(R.id.Lbl_CVF_title);
             pic = itemView.findViewById(R.id.Iv_CVF_portadaFilm);
-
         }
     }
 }
+

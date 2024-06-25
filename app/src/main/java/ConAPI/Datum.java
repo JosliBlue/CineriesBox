@@ -12,24 +12,21 @@ public class Datum {
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("poster")
+    @SerializedName("poster_path")
     @Expose
-    private String poster;
-    @SerializedName("year")
+    private String posterPath;
+    @SerializedName("release_date")
     @Expose
-    private String year;
-    @SerializedName("country")
+    private String releaseDate;
+    @SerializedName("overview")
     @Expose
-    private String country;
-    @SerializedName("imdb_rating")
+    private String overview;
+    @SerializedName("vote_average")
     @Expose
-    private String imdbRating;
-    @SerializedName("genres")
+    private Double voteAverage;
+    @SerializedName("genre_ids")
     @Expose
-    private List<String> genres;
-    @SerializedName("images")
-    @Expose
-    private List<String> images;
+    private List<Integer> genreIds;
 
     public Integer getId() {
         return id;
@@ -39,27 +36,23 @@ public class Datum {
         return title;
     }
 
-    public String getPoster() {
-        return poster;
+    public String getPosterPath() {
+        return posterPath;
     }
 
-    public String getYear() {
-        return year;
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
-    public String getCountry() {
-        return country;
+    public String getOverview() {
+        return overview;
     }
 
-    public String getImdbRating() {
-        return imdbRating;
+    public Double getVoteAverage() {
+        return voteAverage;
     }
 
-    public List<String> getGenres() {
-        return genres;
-    }
-
-    public List<String> getImages() {
-        return images;
+    public List<Integer> getGenreIds() {
+        return genreIds;
     }
 }
