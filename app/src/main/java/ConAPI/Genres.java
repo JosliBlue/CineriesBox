@@ -28,7 +28,11 @@ public class Genres {
     public void setName(String name) {
         this.name = name;
     }
-     */
+
+
+
+
+
 
    private List<GenresItem> genres;
 
@@ -38,5 +42,6 @@ public class Genres {
     public List<GenresItem> getGenres() {
         return genres;
     }
+     */
 
 }
