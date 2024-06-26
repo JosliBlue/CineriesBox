@@ -1,15 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="Fragmentos.FragmentoBuscar">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/titulito"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Estas en buscar" />
+        android:layout_margin="5dp">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <SearchView
+                android:id="@+id/Sv_FB_buscarpelicula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/background_edittext_dark"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:iconifiedByDefault="false"
+
+                android:queryBackground="@android:color/transparent"
+                android:queryHint="Buscar pelicula"
+                android:submitBackground="@android:color/transparent"
+                app:layout_constraintBottom_toTopOf="@+id/Rv_FP_resultados"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/Rv_FP_resultados"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/Sv_FB_buscarpelicula"
+                app:layout_constraintStart_toStartOf="@+id/Sv_FB_buscarpelicula"
+                app:layout_constraintTop_toBottomOf="@+id/Sv_FB_buscarpelicula" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </FrameLayout>
