@@ -192,4 +192,15 @@ public class BDFirebase {
         });
     }
 
+    public static void eliminarDocumento(String path, FirebaseCallBack callback) {
+        DocumentReference docRef = bd.document(path);
+        docRef.delete().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                callback.onResult(true, "Documento eliminado exitosamente");
+            } else {
+                callback.onResult(false, "Error al eliminar el documento: " + task.getException().getMessage());
+            }
+        });
+    }
+
 }

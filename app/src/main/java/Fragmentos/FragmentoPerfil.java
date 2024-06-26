@@ -208,22 +208,40 @@ public class FragmentoPerfil extends Fragment {
         });
     }
 
+    private void mostrarConfirmacionDialogo(String titulo, String descripcion, Runnable accionConfirmar) {
+        confirmarCancelarBinding.lblMCCTitulo.setText(titulo);
+        confirmarCancelarBinding.lblMCCDescripcion.setText(descripcion);
+        confirmarCancelarDialog.show();
+
+        confirmarCancelarBinding.btnMCCConfirmar.setOnClickListener(v -> {
+            accionConfirmar.run();
+            confirmarCancelarDialog.dismiss();
+        });
+
+        confirmarCancelarBinding.btnMCCCancelar.setOnClickListener(v -> {
+            confirmarCancelarDialog.dismiss();
+        });
+    }
+
+    private void modalCerrarSesion() {
+        perfilBinding.btnFPCerrarSesion.setOnClickListener(v -> {
+            mostrarConfirmacionDialogo("¿Cerrar Sesión?", "¿Estás seguro de salir?", () -> {
+                BDFirebase.cerrarSesion();
+                startActivity(new Intent(getActivity(), ActividadLogin.class));
+                requireActivity().finish();
+            });
+        });
+    }
+
     private void intentarMostrarListas() {
         listaItems = new ArrayList<>();
         recyclerView = perfilBinding.RvFPListas;
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        listaAdapter = new ListaAdapter(requireContext(), listaItems, new ListaAdapter.OnItemClickListener() {
-            @Override
-            public void onEditClick(int position) {
-                // Lógica para editar colección en la posición 'position'
-                Toast.makeText(requireContext(), "Editar colección en posición " + position, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDeleteClick(int position) {
-                // Lógica para eliminar colección en la posición 'position'
-                Toast.makeText(requireContext(), "Eliminar colección en posición " + position, Toast.LENGTH_SHORT).show();
-            }
+        listaAdapter = new ListaAdapter(requireContext(), listaItems, position -> {
+            mostrarConfirmacionDialogo("Eliminar lista", "¿Estás seguro de eliminar la lista?", () -> {
+                String nombreLista = listaItems.get(position);
+                eliminarLista(nombreLista, position);
+            });
         });
         recyclerView.setAdapter(listaAdapter);
 
@@ -240,21 +258,26 @@ public class FragmentoPerfil extends Fragment {
         });
     }
 
-    private void modalCerrarSesion() {
-        confirmarCancelarBinding.lblMCCTitulo.setText("¿Cerrar Sesión?");
-        confirmarCancelarBinding.lblMCCDescripcion.setText("Estás seguro de salir?");
-        perfilBinding.btnFPCerrarSesion.setOnClickListener(v -> {
-            confirmarCancelarDialog.show();
-        });
-        confirmarCancelarBinding.btnMCCCancelar.setOnClickListener(v -> {
-            confirmarCancelarDialog.dismiss();
-        });
-        confirmarCancelarBinding.btnMCCConfirmar.setOnClickListener(v -> {
-            BDFirebase.cerrarSesion();
-            startActivity(new Intent(getActivity(), ActividadLogin.class));
-            getActivity().finish();
+    private void eliminarLista(String nombreLista, int position) {
+        if (nombreLista.equalsIgnoreCase("Favoritos")) {
+            Toast.makeText(requireContext(), "Favoritos no se puede eliminar", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String uid = BDFirebase.getUsuarioActual().getUid();
+        String path = "USUARIOS/" + uid + "/LISTAS/" + nombreLista;
+
+        BDFirebase.eliminarDocumento(path, (success, message) -> {
+            if (success) {
+                Toast.makeText(requireContext(), "Lista eliminada exitosamente", Toast.LENGTH_SHORT).show();
+                listaItems.remove(position);
+                listaAdapter.notifyDataSetChanged();
+                confirmarCancelarDialog.dismiss();
+            } else {
+                Toast.makeText(requireContext(), "Error al eliminar lista: " + message, Toast.LENGTH_SHORT).show();
+            }
         });
     }
+
 
     private void actualizarDisplayNameEnBD(String nuevoNombre) {
         String uid = BDFirebase.getUsuarioActual().getUid();

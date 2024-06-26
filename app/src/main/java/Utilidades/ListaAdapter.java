@@ -21,8 +21,6 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHol
     private OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener {
-        void onEditClick(int position);
-
         void onDeleteClick(int position);
     }
 
@@ -57,20 +55,8 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHol
         public ListaViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             tvListName = itemView.findViewById(R.id.Lbl_IL_NombreLista);
-            ivEdit = itemView.findViewById(R.id.Btn_IL_Editar);
             ivDelete = itemView.findViewById(R.id.Btn_IL_Borrar);
 
-            ivEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (onItemClickListener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            onItemClickListener.onEditClick(position);
-                        }
-                    }
-                }
-            });
 
             ivDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
