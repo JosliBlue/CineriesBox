@@ -12,7 +12,10 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /* Aqui solo se consume el servicio de firebase,
@@ -126,6 +129,19 @@ public class BDFirebase {
     }
 
     // BASE DE DATOS -------------------------------------------------------------------------------
+
+    public static void obtenerDocumentos(String path, FirebaseCallBacks<List<String>> callback) {
+        bd.collection(path).get().addOnSuccessListener(querySnapshot -> {
+            List<String> documentos = new ArrayList<>();
+            for (QueryDocumentSnapshot documentSnapshot : querySnapshot) {
+                documentos.add(documentSnapshot.getId()); // Agregar el ID del documento a la lista
+            }
+            callback.onResult(true, documentos);
+        }).addOnFailureListener(e -> {
+            callback.onResult(false, null);
+        });
+    }
+
     public static void guardarDocumento(String path, Map<String, Object> data, FirebaseCallBack callback) {
         bd.document(path).set(data).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

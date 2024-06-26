@@ -41,28 +41,25 @@ public class ActividadLogin extends AppCompatActivity {
     }
 
     private void esperarIntentoLogin() {
-        binding.btnALIniciarSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Control.campoVacio(binding.txtALCorreo) || Control.campoVacio(binding.txtALClave)) {
-                    Toast.makeText(ActividadLogin.this, "Correo o clave invalidos\nPrueba de nuevo. . .", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (!Control.conexInternet(ActividadLogin.this)) {
-                    Toast.makeText(ActividadLogin.this, "No hay conexión a Internet\nIntenta mas tarde. . .", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                String correo_string = binding.txtALCorreo.getText().toString().trim();
-                String clave_string = binding.txtALClave.getText().toString().trim();
-                BDFirebase.intentarLogin(correo_string, clave_string, (success, message) -> {
-                    if (success) {
-                        startActivity(new Intent(ActividadLogin.this, ActividadPantallaPrincipal.class));
-                        finish();
-                    } else {
-                        Toast.makeText(ActividadLogin.this, message, Toast.LENGTH_SHORT).show();
-                    }
-                });
+        binding.btnALIniciarSesion.setOnClickListener(v -> {
+            if (Control.campoVacio(binding.txtALCorreo) || Control.campoVacio(binding.txtALClave)) {
+                Toast.makeText(ActividadLogin.this, "Correo o clave invalidos\nPrueba de nuevo. . .", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if (!Control.conexInternet(ActividadLogin.this)) {
+                Toast.makeText(ActividadLogin.this, "No hay conexión a Internet\nIntenta mas tarde. . .", Toast.LENGTH_LONG).show();
+                return;
+            }
+            String correo_string = binding.txtALCorreo.getText().toString().trim();
+            String clave_string = binding.txtALClave.getText().toString().trim();
+            BDFirebase.intentarLogin(correo_string, clave_string, (success, message) -> {
+                if (success) {
+                    startActivity(new Intent(ActividadLogin.this, ActividadPantallaPrincipal.class));
+                    finish();
+                } else {
+                    Toast.makeText(ActividadLogin.this, message, Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 

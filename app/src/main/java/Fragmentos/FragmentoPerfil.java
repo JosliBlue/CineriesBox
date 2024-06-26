@@ -10,18 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
-
-import com.google.firebase.auth.FirebaseUser;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 import Auth.ActividadLogin;
 import Utilidades.FirebaseCallBack;
 import Utilidades.BDFirebase;
 import Utilidades.Control;
+import Utilidades.ListaAdapter;
 import ec.com.josliblue.cineriesbox.databinding.FragmentoPerfilBinding;
 import ec.com.josliblue.cineriesbox.databinding.ModalCancelarConfirmarBinding;
 import ec.com.josliblue.cineriesbox.databinding.ModalModificarPerfilBinding;
@@ -32,6 +32,9 @@ public class FragmentoPerfil extends Fragment {
     private Dialog confirmarCancelarDialog;
     private ModalModificarPerfilBinding modificarPerfilBinding;
     private Dialog modificarPerfilDialog;
+    private RecyclerView recyclerView;
+    private ListaAdapter listaAdapter;
+    private List<String> listaItems;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n", "WrongViewCast"})
     @Override
@@ -82,12 +85,44 @@ public class FragmentoPerfil extends Fragment {
         modificarPerfilParams.setMargins(marginInPx, 0, marginInPx, 0);
         modificarPerfilBinding.getRoot().setLayoutParams(modificarPerfilParams);
 
-        perfilBinding.txtFPNombreUsuario.setText("Hola " + BDFirebase.getUsuarioActual().getDisplayName());
-
+        perfilBinding.LblFPNombreUsuario.setText("Hola " + BDFirebase.getUsuarioActual().getDisplayName());
+        inicializarRecyclerView();
         esperarIntentoCerrarSesion();
         esperarVentanaEditarPerfil();
 
         return view;
+    }
+
+    private void inicializarRecyclerView() {
+        listaItems = new ArrayList<>();
+        recyclerView = perfilBinding.RvFPListas;
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        listaAdapter = new ListaAdapter(requireContext(), listaItems, new ListaAdapter.OnItemClickListener() {
+            @Override
+            public void onEditClick(int position) {
+                // Lógica para editar colección en la posición 'position'
+                Toast.makeText(requireContext(), "Editar colección en posición " + position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                // Lógica para eliminar colección en la posición 'position'
+                Toast.makeText(requireContext(), "Eliminar colección en posición " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerView.setAdapter(listaAdapter);
+
+        String uid = BDFirebase.getUsuarioActual().getUid();
+        String path = "USUARIOS/" + uid + "/LISTAS";
+
+        BDFirebase.obtenerDocumentos(path, (success, result) -> {
+            if (success && result != null) {
+                listaItems.addAll(result);
+                listaAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(requireContext(), "Error al obtener documentos de LISTAS", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void esperarIntentoCerrarSesion() {
@@ -109,10 +144,7 @@ public class FragmentoPerfil extends Fragment {
     private void esperarVentanaEditarPerfil() {
         modificarPerfilBinding.txtMMPNuevoNombre.setText(BDFirebase.getUsuarioActual().getDisplayName());
 
-        perfilBinding.btnFPEditarMiPerfil1.setOnClickListener(v -> {
-            modificarPerfilDialog.show();
-        });
-        perfilBinding.btnFPEditarMiPerfil2.setOnClickListener(v -> {
+        perfilBinding.BtnFPEditarMiPerfil.setOnClickListener(v -> {
             modificarPerfilDialog.show();
         });
         modificarPerfilBinding.btnMMPCancelar.setOnClickListener(v -> {
@@ -163,24 +195,17 @@ public class FragmentoPerfil extends Fragment {
     }
 
     private void actualizarDisplayNameEnBD(String nuevoNombre) {
-        FirebaseUser currentUser = BDFirebase.getUsuarioActual();
-        if (currentUser != null) {
-            String uid = currentUser.getUid();
-            String path = "USUARIOS/" + uid;
-            Map<String, Object> data = new HashMap<>();
-            data.put("DisplayName", nuevoNombre);
+        String uid = BDFirebase.getUsuarioActual().getUid();
+        String path = "USUARIOS/" + uid;
+        Map<String, Object> data = new HashMap<>();
+        data.put("DisplayName", nuevoNombre);
 
-            BDFirebase.actualizarDocumento(path, data, new FirebaseCallBack() {
-                @Override
-                public void onResult(boolean success, String message) {
-                    if (success) {
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
-        }
+        BDFirebase.actualizarDocumento(path, data, (success, message) -> {
+            if (success) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
