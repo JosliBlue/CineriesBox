@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -143,23 +144,39 @@ public class BDFirebase {
     }
 
     public static void guardarDocumento(String path, Map<String, Object> data, FirebaseCallBack callback) {
-        bd.document(path).set(data).addOnCompleteListener(task -> {
+        bd.document(path).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                callback.onResult(true, "Documento guardado exitosamente");
-            } else {
-                String errorMessage = "Error al guardar el documento: " + task.getException().getMessage();
-                if (task.getException() instanceof FirebaseFirestoreException) {
-                    FirebaseFirestoreException.Code code = ((FirebaseFirestoreException) task.getException()).getCode();
-                    if (code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
-                        errorMessage = "Permisos denegados. Verifica las reglas de seguridad de Firestore.";
-                    } else if (code == FirebaseFirestoreException.Code.UNAVAILABLE) {
-                        errorMessage = "Servicio no disponible. Inténtalo de nuevo más tarde.";
-                    }
+                DocumentSnapshot document = task.getResult();
+                if (document != null && document.exists()) {
+                    String errorMessage = "Ya existe un documento con el mismo nombre";
+                    callback.onResult(false, errorMessage);
+                } else {
+                    // No existe documento con el mismo nombre, proceder a guardarlo
+                    bd.document(path).set(data).addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            callback.onResult(true, "Documento guardado exitosamente");
+                        } else {
+                            String errorMessage = "Error al guardar el documento: " + task1.getException().getMessage();
+                            if (task1.getException() instanceof FirebaseFirestoreException) {
+                                FirebaseFirestoreException.Code code = ((FirebaseFirestoreException) task1.getException()).getCode();
+                                if (code == FirebaseFirestoreException.Code.PERMISSION_DENIED) {
+                                    errorMessage = "Permisos denegados. Verifica las reglas de seguridad de Firestore.";
+                                } else if (code == FirebaseFirestoreException.Code.UNAVAILABLE) {
+                                    errorMessage = "Servicio no disponible. Inténtalo de nuevo más tarde.";
+                                }
+                            }
+                            callback.onResult(false, errorMessage);
+                        }
+                    });
                 }
+            } else {
+                // Error al verificar la existencia del documento
+                String errorMessage = "Error al verificar la existencia del documento: " + task.getException().getMessage();
                 callback.onResult(false, errorMessage);
             }
         });
     }
+
 
     public static void actualizarDocumento(String path, Map<String, Object> data, FirebaseCallBack callback) {
         DocumentReference docRef = bd.document(path);
