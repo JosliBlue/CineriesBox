@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ec.com.josliblue.cineriesbox.R;
+import ec.com.josliblue.cineriesbox.databinding.FragmentoPerfilBinding;
 
 public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHolder> {
-
+    private FragmentoPerfilBinding perfilBinding;
     private List<String> listaItems;
     private Context context;
     private OnItemClickListener onItemClickListener;
@@ -33,7 +34,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHol
     @NonNull
     @Override
     public ListaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_list, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.componente_item_list, parent, false);
         return new ListaViewHolder(view, onItemClickListener);
     }
 
@@ -50,22 +51,18 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHol
 
     public static class ListaViewHolder extends RecyclerView.ViewHolder {
         TextView tvListName;
-        ImageView ivEdit, ivDelete;
+        ImageView ivDelete;
 
         public ListaViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             tvListName = itemView.findViewById(R.id.Lbl_IL_NombreLista);
             ivDelete = itemView.findViewById(R.id.Btn_IL_Borrar);
 
-
-            ivDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (onItemClickListener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            onItemClickListener.onDeleteClick(position);
-                        }
+            ivDelete.setOnClickListener(view -> {
+                if (onItemClickListener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        onItemClickListener.onDeleteClick(position);
                     }
                 }
             });

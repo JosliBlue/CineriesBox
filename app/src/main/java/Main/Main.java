@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.auth.FirebaseUser;
 
-import Auth.ActividadLogin;
-import Home.ActividadPantallaPrincipal;
+import Vistas.ActividadLogin;
+import Vistas.ActividadPantallaPrincipal;
 import Utilidades.BDFirebase;
 import ec.com.josliblue.cineriesbox.R;
 

@@ -1,4 +1,4 @@
-package Fragmentos;
+package Vistas;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Auth.ActividadLogin;
+import Vistas.ActividadLogin;
 import Utilidades.FirebaseCallBack;
 import Utilidades.BDFirebase;
 import Utilidades.Control;
@@ -39,7 +39,6 @@ public class FragmentoPerfil extends Fragment {
     private Dialog confirmarCancelarDialog;
     private Dialog modificarPerfilDialog;
     private Dialog crearListaDialog;
-    private RecyclerView recyclerView;
     private ListaAdapter listaAdapter;
     private List<String> listaItems;
 
@@ -235,11 +234,15 @@ public class FragmentoPerfil extends Fragment {
 
     private void intentarMostrarListas() {
         listaItems = new ArrayList<>();
-        recyclerView = perfilBinding.RvFPListas;
+        RecyclerView recyclerView = perfilBinding.RvFPListas;
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         listaAdapter = new ListaAdapter(requireContext(), listaItems, position -> {
             mostrarConfirmacionDialogo("Eliminar lista", "¿Estás seguro de eliminar la lista?", () -> {
                 String nombreLista = listaItems.get(position);
+                if (nombreLista.equalsIgnoreCase("Favoritos")) {
+                    Toast.makeText(requireContext(), "Favoritos no se puede eliminar", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 eliminarLista(nombreLista, position);
             });
         });
@@ -259,10 +262,6 @@ public class FragmentoPerfil extends Fragment {
     }
 
     private void eliminarLista(String nombreLista, int position) {
-        if (nombreLista.equalsIgnoreCase("Favoritos")) {
-            Toast.makeText(requireContext(), "Favoritos no se puede eliminar", Toast.LENGTH_SHORT).show();
-            return;
-        }
         String uid = BDFirebase.getUsuarioActual().getUid();
         String path = "USUARIOS/" + uid + "/LISTAS/" + nombreLista;
 
@@ -277,7 +276,6 @@ public class FragmentoPerfil extends Fragment {
             }
         });
     }
-
 
     private void actualizarDisplayNameEnBD(String nuevoNombre) {
         String uid = BDFirebase.getUsuarioActual().getUid();

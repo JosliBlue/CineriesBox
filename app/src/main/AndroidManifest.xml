@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,25 +13,28 @@
         android:roundIcon="@mipmap/icon_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CineriesBox"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <activity
+            android:name="Vistas.ActividadItemsLista"
+            android:exported="false" />
         <activity
             android:name="ConAPI.ActividadDetalleFilm"
             android:exported="false" />
         <activity
-            android:name="Home.ActividadPantallaPrincipal"
+            android:name="Vistas.ActividadPantallaPrincipal"
             android:exported="false" />
         <activity
-            android:name="Auth.ActividadRecuperarClave"
+            android:name="Vistas.ActividadRecuperarClave"
             android:exported="false" />
         <activity
-            android:name="Auth.ActividadRegistro"
+            android:name="Vistas.ActividadLogin$ActividadRegistro"
             android:exported="false" />
         <activity
-            android:name="Auth.ActividadLogin"
+            android:name="Vistas.ActividadLogin"
             android:exported="false" />
         <activity
             android:name="Main.Main"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

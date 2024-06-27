@@ -7,7 +7,7 @@
     android:background="@color/main_color"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context="Fragmentos.FragmentoPrincipal">
+    tools:context="Vistas.FragmentoPrincipal">
 
 
     <ScrollView

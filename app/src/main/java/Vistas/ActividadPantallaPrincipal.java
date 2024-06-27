@@ -1,4 +1,4 @@
-package Home;
+package Vistas;
 
 import android.os.Bundle;
 
@@ -12,9 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import Fragmentos.FragmentoBuscar;
-import Fragmentos.FragmentoPerfil;
-import Fragmentos.FragmentoPrincipal;
 import ec.com.josliblue.cineriesbox.R;
 import ec.com.josliblue.cineriesbox.databinding.ActividadPantallaPrincipalBinding;
 
