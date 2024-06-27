@@ -41,6 +41,12 @@ public class ActividadVerLista extends AppCompatActivity {
             return insets;
         });
 
+        // Configurar SwipeRefreshLayout
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            moviesList.clear(); // Limpiar la lista actual
+            iniciarVentana(); // Volver a cargar la lista
+        });
+
         iniciarVentana();
     }
 
@@ -62,8 +68,10 @@ public class ActividadVerLista extends AppCompatActivity {
                     moviesList.add(movie);
                 }
                 fetchMovieDetails(moviesList);
+                binding.swipeRefreshLayout.setRefreshing(false);
             } else {
                 Toast.makeText(this, "Error al obtener el documento", Toast.LENGTH_SHORT).show();
+                binding.swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

@@ -8,7 +8,9 @@
     android:background="@color/main_color"
     tools:context="Vistas.ActividadVerLista">
 
-    <ScrollView
+    <!-- Agregar SwipeRefreshLayout -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="15dp"
@@ -16,30 +18,33 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-
-            <TextView
-                android:id="@+id/Lbl_AVL_Titulo"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Titulo Lista"
-                android:textColor="@color/white"
-                android:textSize="25dp"
-                android:padding="10dp"
-                android:gravity="center"
-                android:background="@drawable/background_cat"
-                android:layout_marginBottom="10dp"
-                />
+                android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/Rv_AVL_Lista"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </ScrollView>
+                <TextView
+                    android:id="@+id/Lbl_AVL_Titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/background_cat"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Titulo Lista"
+                    android:textColor="@color/white"
+                    android:textSize="25dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/Rv_AVL_Lista"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

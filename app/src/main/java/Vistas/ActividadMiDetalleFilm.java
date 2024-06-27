@@ -56,9 +56,6 @@ public class ActividadMiDetalleFilm extends AppCompatActivity {
     private int idFilm;
     private String titleFilm;
     private RecyclerView.Adapter adapterCategory;
-    private BottomSheetDialog bottomSheetDialog;
-    private ListaAdapterModal listaAdapter;
-    private List<String> listaItems;
     private String nombreLista;
 
     private ModalCancelarConfirmarBinding confirmarCancelarBinding;
@@ -79,7 +76,7 @@ public class ActividadMiDetalleFilm extends AppCompatActivity {
         titleFilm = getIntent().getStringExtra("title");
         nombreLista = getIntent().getStringExtra("nombreLista");
 
-        binding.RvADFMiImagenRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        //binding.RvADFMiImagenRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.RvADFMiGenreView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         confirmarCancelarBinding = ModalCancelarConfirmarBinding.inflate(getLayoutInflater());

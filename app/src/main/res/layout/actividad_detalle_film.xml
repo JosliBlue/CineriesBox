@@ -183,7 +183,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/textView6"
                 app:layout_constraintTop_toBottomOf="@id/textView6" />
-
+<!--
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
@@ -215,6 +215,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/Lbl_ADF_actores" />
+                -->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

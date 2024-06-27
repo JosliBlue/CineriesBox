@@ -63,7 +63,7 @@ public class ActividadDetalleFilm extends AppCompatActivity {
         idFilm = getIntent().getIntExtra("id", 0);
         titleFilm = getIntent().getStringExtra("title");
 
-        binding.RvADFImagenRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        //binding.RvADFImagenRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.RvADFGenreView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         binding.IvADFBackButton.setOnClickListener(v -> finish());
