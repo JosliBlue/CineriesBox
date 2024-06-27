@@ -18,7 +18,7 @@
             android:name="Vistas.ActividadItemsLista"
             android:exported="false" />
         <activity
-            android:name="ConAPI.ActividadDetalleFilm"
+            android:name="Vistas.ActividadDetalleFilm"
             android:exported="false" />
         <activity
             android:name="Vistas.ActividadPantallaPrincipal"

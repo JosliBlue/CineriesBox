@@ -138,6 +138,19 @@ public class ActividadLogin extends AppCompatActivity {
                                     BDFirebase.guardarDocumento(path, userMap, (dbSuccess, dbMessage) -> {
                                         if (dbSuccess) {
                                             Toast.makeText(ActividadRegistro.this, "Usuario creado :)\nInicia sesión para continuar", Toast.LENGTH_SHORT).show();
+
+                                            //para crear la lista favoritos predeterminada al usuario despues del registro
+                                            String pathsito = "USUARIOS/" + usuarioActual.getUid() + "/LISTAS/" + "Favoritos";
+
+                                            Map<String, Object> nuevaLista = new HashMap<>();
+
+                                            BDFirebase.guardarDocumento(pathsito, nuevaLista, (addsuccess, addmessage) -> {
+                                                if (addsuccess) {
+                                                    //Toast.makeText(ActividadRegistro.this, "Lista creada exitosamente", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    //Toast.makeText(ActividadRegistro.this, "Error al crear lista: " + message, Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                             finish();
                                         } else {
                                             Toast.makeText(ActividadRegistro.this, dbMessage, Toast.LENGTH_SHORT).show();
