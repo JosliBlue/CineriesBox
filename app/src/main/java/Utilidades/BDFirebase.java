@@ -9,11 +9,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -158,9 +160,6 @@ public class BDFirebase {
         });
     }
 
-
-
-
     public static void guardarDocumento(String path, Map<String, Object> data, FirebaseCallBack callback) {
         bd.document(path).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -219,5 +218,19 @@ public class BDFirebase {
             }
         });
     }
+    public static void eliminarClave(String path, String key, FirebaseCallBack callback) {
+        DocumentReference docRef = bd.document(path);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put(key, FieldValue.delete());
+
+        docRef.update(updates).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                callback.onResult(true, "Eliminado correctamente");
+            } else {
+                callback.onResult(false, "Error al eliminar la clave: " + task.getException().getMessage());
+            }
+        });
+    }
+
 
 }

@@ -28,6 +28,10 @@ public class Datum {
     @Expose
     private List<Integer> genreIds;
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -54,5 +58,13 @@ public class Datum {
 
     public List<Integer> getGenreIds() {
         return genreIds;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 }
