@@ -32,7 +32,6 @@ import java.util.Map;
 import ConAPI.CategoryEachFilmListAdapter;
 import ConAPI.FilmItem;
 import Utilidades.BDFirebase;
-import Utilidades.FirebaseCallBack;
 import Utilidades.ListaAdapterModal;
 import ec.com.josliblue.cineriesbox.R;
 import ec.com.josliblue.cineriesbox.databinding.ActividadDetalleFilmBinding;
@@ -78,25 +77,33 @@ public class ActividadDetalleFilm extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         listaItems = new ArrayList<>();
+
+
         listaAdapter = new ListaAdapterModal(this, listaItems, position -> {
             String nombreLista = listaItems.get(position);
             String uid = BDFirebase.getUsuarioActual().getUid();
 
             String path = "USUARIOS/" + uid + "/LISTAS/" + nombreLista;
-            Map<String, Object> data = new HashMap<>();
-            data.put(String.valueOf(idFilm), titleFilm);
 
-            BDFirebase.buscarClaveEnDocumento(path, idFilm, (exists, message) -> {
-                if (exists) {
-                    Toast.makeText(this, "Ya agregado a la lista", Toast.LENGTH_SHORT).show();
+            BDFirebase.obtenerDocumento(path, (success, data) -> {
+                if (success && data != null) {
+
+                    if (data.containsKey(String.valueOf(idFilm))) {
+                        Toast.makeText(this, "Ya agregado a la lista", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Map<String, Object> newData = new HashMap<>(data);
+                        newData.put(String.valueOf(idFilm), titleFilm);
+
+                        BDFirebase.actualizarDocumento(path, newData, (updateSuccess, updateMessage) -> {
+                            if (updateSuccess) {
+                                Toast.makeText(this, updateMessage + nombreLista, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(this, "Error al actualizar campo: " + updateMessage, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 } else {
-                    BDFirebase.actualizarDocumento(path, data, (success, updateMessage) -> {
-                        if (success) {
-                            Toast.makeText(this, updateMessage + nombreLista, Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(this, "Error al actualizar campo: " + updateMessage, Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    Toast.makeText(this, "Error al obtener el documento", Toast.LENGTH_SHORT).show();
                 }
             });
             bottomSheetDialog.dismiss();
@@ -105,7 +112,6 @@ public class ActividadDetalleFilm extends AppCompatActivity {
 
         intentarMostrarListas();
     }
-
 
 
     private void intentarMostrarListas() {

@@ -1,7 +1,5 @@
 package Utilidades;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -143,32 +141,24 @@ public class BDFirebase {
         });
     }
 
-    public static void buscarClaveEnDocumento(String path, int idFilm, FirebaseCallBack callback) {
-        // Obtener la referencia al documento
+    public static void obtenerDocumento(String path, FirebaseCallBacks<Map<String, Object>> callback) {
         DocumentReference docRef = bd.document(path);
-
-        // Buscar si ya existe la clave con el valor idFilm
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    // Obtener los datos actuales del documento
                     Map<String, Object> data = document.getData();
-
-                    // Verificar si ya existe la clave a buscar
-                    if (data != null && data.containsKey(String.valueOf(idFilm))) {
-                        callback.onResult(true, "La clave existe en el documento");
-                    } else {
-                        callback.onResult(false, "La clave no existe en el documento");
-                    }
+                    callback.onResult(true, data);
                 } else {
-                    callback.onResult(false, "Documento no encontrado");
+                    callback.onResult(false, null);
                 }
             } else {
-                callback.onResult(false, "Error al obtener el documento: " + task.getException().getMessage());
+                callback.onResult(false, null);
             }
         });
     }
+
+
 
 
     public static void guardarDocumento(String path, Map<String, Object> data, FirebaseCallBack callback) {
