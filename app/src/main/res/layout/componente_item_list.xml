@@ -15,7 +15,7 @@
         android:layout_marginStart="10dp"
         android:text="Nombre de la lista"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Btn_IL_Borrar"
         app:layout_constraintHorizontal_bias="0.0"

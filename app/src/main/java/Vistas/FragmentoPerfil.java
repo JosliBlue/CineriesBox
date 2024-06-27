@@ -21,11 +21,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Vistas.ActividadLogin;
 import Utilidades.FirebaseCallBack;
 import Utilidades.BDFirebase;
 import Utilidades.Control;
-import Utilidades.ListaAdapter;
+import Utilidades.ListaAdapterPerfil;
 import ec.com.josliblue.cineriesbox.databinding.FragmentoPerfilBinding;
 import ec.com.josliblue.cineriesbox.databinding.ModalCancelarConfirmarBinding;
 import ec.com.josliblue.cineriesbox.databinding.ModalCrearListaBinding;
@@ -39,7 +38,7 @@ public class FragmentoPerfil extends Fragment {
     private Dialog confirmarCancelarDialog;
     private Dialog modificarPerfilDialog;
     private Dialog crearListaDialog;
-    private ListaAdapter listaAdapter;
+    private ListaAdapterPerfil listaAdapterPerfil;
     private List<String> listaItems;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n", "WrongViewCast"})
@@ -198,7 +197,6 @@ public class FragmentoPerfil extends Fragment {
                 if (success) {
                     Toast.makeText(requireContext(), "Lista creada exitosamente", Toast.LENGTH_SHORT).show();
                     listaItems.add(nombreLista);
-                    listaAdapter.notifyDataSetChanged();
                     crearListaDialog.dismiss();
                 } else {
                     Toast.makeText(requireContext(), "Error al crear lista: " + message, Toast.LENGTH_SHORT).show();
@@ -236,7 +234,7 @@ public class FragmentoPerfil extends Fragment {
         listaItems = new ArrayList<>();
         RecyclerView recyclerView = perfilBinding.RvFPListas;
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        listaAdapter = new ListaAdapter(requireContext(), listaItems, position -> {
+        listaAdapterPerfil = new ListaAdapterPerfil(requireContext(), listaItems, position -> {
             mostrarConfirmacionDialogo("Eliminar lista", "¿Estás seguro de eliminar la lista?", () -> {
                 String nombreLista = listaItems.get(position);
                 if (nombreLista.equalsIgnoreCase("Favoritos")) {
@@ -246,7 +244,7 @@ public class FragmentoPerfil extends Fragment {
                 eliminarLista(nombreLista, position);
             });
         });
-        recyclerView.setAdapter(listaAdapter);
+        recyclerView.setAdapter(listaAdapterPerfil);
 
         String uid = BDFirebase.getUsuarioActual().getUid();
         String path = "USUARIOS/" + uid + "/LISTAS";
@@ -254,7 +252,7 @@ public class FragmentoPerfil extends Fragment {
         BDFirebase.obtenerDocumentos(path, (success, result) -> {
             if (success && result != null) {
                 listaItems.addAll(result);
-                listaAdapter.notifyDataSetChanged();
+                listaAdapterPerfil.notifyDataSetChanged();
             } else {
                 Toast.makeText(requireContext(), "Error al obtener documentos de LISTAS", Toast.LENGTH_SHORT).show();
             }
@@ -269,7 +267,7 @@ public class FragmentoPerfil extends Fragment {
             if (success) {
                 Toast.makeText(requireContext(), "Lista eliminada exitosamente", Toast.LENGTH_SHORT).show();
                 listaItems.remove(position);
-                listaAdapter.notifyDataSetChanged();
+                listaAdapterPerfil.notifyDataSetChanged();
                 confirmarCancelarDialog.dismiss();
             } else {
                 Toast.makeText(requireContext(), "Error al eliminar lista: " + message, Toast.LENGTH_SHORT).show();

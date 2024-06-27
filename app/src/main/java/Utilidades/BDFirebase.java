@@ -143,6 +143,34 @@ public class BDFirebase {
         });
     }
 
+    public static void buscarClaveEnDocumento(String path, int idFilm, FirebaseCallBack callback) {
+        // Obtener la referencia al documento
+        DocumentReference docRef = bd.document(path);
+
+        // Buscar si ya existe la clave con el valor idFilm
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    // Obtener los datos actuales del documento
+                    Map<String, Object> data = document.getData();
+
+                    // Verificar si ya existe la clave a buscar
+                    if (data != null && data.containsKey(String.valueOf(idFilm))) {
+                        callback.onResult(true, "La clave existe en el documento");
+                    } else {
+                        callback.onResult(false, "La clave no existe en el documento");
+                    }
+                } else {
+                    callback.onResult(false, "Documento no encontrado");
+                }
+            } else {
+                callback.onResult(false, "Error al obtener el documento: " + task.getException().getMessage());
+            }
+        });
+    }
+
+
     public static void guardarDocumento(String path, Map<String, Object> data, FirebaseCallBack callback) {
         bd.document(path).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -180,14 +208,13 @@ public class BDFirebase {
 
     public static void actualizarDocumento(String path, Map<String, Object> data, FirebaseCallBack callback) {
         DocumentReference docRef = bd.document(path);
-        docRef.update(data).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(Task<Void> task) {
-                if (task.isSuccessful()) {
-                    /*callback.onResult(true, "Documento actualizado exitosamente");*/
-                } else {
-                    callback.onResult(false, "Error al actualizar el documento: " + task.getException().getMessage());
+        docRef.update(data).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (!data.containsKey("DisplayName")) {
+                    callback.onResult(true, "Guardado en ");
                 }
+            } else {
+                callback.onResult(false, "Error al actualizar el documento: " + task.getException().getMessage());
             }
         });
     }

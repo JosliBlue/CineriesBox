@@ -13,10 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ec.com.josliblue.cineriesbox.R;
-import ec.com.josliblue.cineriesbox.databinding.FragmentoPerfilBinding;
 
-public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHolder> {
-    private FragmentoPerfilBinding perfilBinding;
+public class ListaAdapterPerfil extends RecyclerView.Adapter<ListaAdapterPerfil.ListaPerfilViewHolder> {
     private List<String> listaItems;
     private Context context;
     private OnItemClickListener onItemClickListener;
@@ -25,7 +23,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHol
         void onDeleteClick(int position);
     }
 
-    public ListaAdapter(Context context, List<String> listaItems, OnItemClickListener onItemClickListener) {
+    public ListaAdapterPerfil(Context context, List<String> listaItems, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.listaItems = listaItems;
         this.onItemClickListener = onItemClickListener;
@@ -33,13 +31,13 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHol
 
     @NonNull
     @Override
-    public ListaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListaPerfilViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.componente_item_list, parent, false);
-        return new ListaViewHolder(view, onItemClickListener);
+        return new ListaPerfilViewHolder(view, onItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListaViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ListaPerfilViewHolder holder, int position) {
         String item = listaItems.get(position);
         holder.tvListName.setText(item);
     }
@@ -49,11 +47,11 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ListaViewHol
         return listaItems.size();
     }
 
-    public static class ListaViewHolder extends RecyclerView.ViewHolder {
+    public static class ListaPerfilViewHolder extends RecyclerView.ViewHolder {
         TextView tvListName;
         ImageView ivDelete;
 
-        public ListaViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
+        public ListaPerfilViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             tvListName = itemView.findViewById(R.id.Lbl_IL_NombreLista);
             ivDelete = itemView.findViewById(R.id.Btn_IL_Borrar);
